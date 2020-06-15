@@ -1,16 +1,23 @@
 package edu.hanu.social_media_desktop_client.gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
+import edu.hanu.social_media_desktop_client.model.Profile;
+import edu.hanu.social_media_desktop_client.service.ProfileService;
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderPasswordField;
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderTextField;
+import edu.hanu.social_media_desktop_client.utils.Validator;
 
 public class RegisterGUI extends JFrame {
 	/**
@@ -33,6 +40,8 @@ public class RegisterGUI extends JFrame {
 	private JLabel lbSelectQuestion;
 	@SuppressWarnings("rawtypes")
 	private JComboBox listQuestions;
+
+	ProfileService profileService = new ProfileService();
 
 	public RegisterGUI() {
 		// TODO Auto-generated constructor stub
@@ -124,6 +133,69 @@ public class RegisterGUI extends JFrame {
 		btnRegister = new JButton("Register");
 		btnRegister.setSize(100, 30);
 		btnRegister.setLocation(155, 470);
+		btnRegister.addActionListener(new ActionListener() {
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Check " + profileService.getProfile(textUserName.getText()).toString());
+				if (textFirstName.getText().isEmpty() || textFirstName.getText().equals("First Name")
+						|| textFirstName.getText() == null) {
+					JOptionPane.showMessageDialog(null, "Please input your first name.");
+				} else if (textLastName.getText().isEmpty() || textLastName.getText().equals("Last Name")
+						|| textLastName.getText() == null) {
+					JOptionPane.showMessageDialog(null, "Please input your last name.");
+				} else if (textUserName.getText().isEmpty() || textUserName.getText().equals("UserName")
+						|| textUserName.getText() == null) {
+					JOptionPane.showMessageDialog(null, "Please input your user name.");
+				} else if (textAddress.getText().isEmpty() || textAddress.getText().equals("Address")
+						|| textAddress.getText() == null) {
+					JOptionPane.showMessageDialog(null, "Please input your address.");
+				} else if (textPhoneNumber.getText().isEmpty() || textPhoneNumber.getText().equals("Phone Number")
+						|| textPhoneNumber.getText() == null) {
+					JOptionPane.showMessageDialog(null, "Please input your phone number.");
+				} else if (textPassword.getText().isEmpty() || textPassword.getText().equals("Password")
+						|| textPassword.getText() == null) {
+					JOptionPane.showMessageDialog(null, "Please input your password.");
+				} else if (textConfirmPassword.getText().isEmpty() || textConfirmPassword.getText().equals("Password")
+						|| textConfirmPassword.getText() == null) {
+					JOptionPane.showMessageDialog(null, "Please confirm your password.");
+				} else if (textEmail.getText().isEmpty() || textEmail.getText().equals("Email")
+						|| textEmail.getText() == null) {
+					JOptionPane.showMessageDialog(null, "Please input your email.");
+				} else if (textAnswer.getText().isEmpty() || textAnswer.getText().equals("Answer")
+						|| textAnswer.getText() == null) {
+					JOptionPane.showMessageDialog(null, "Please input your answer.");
+				} else {
+					if (!Validator.isStringNumeric(textPhoneNumber.getText())) {
+						JOptionPane.showMessageDialog(null, "INVALID PHONE NUMBER.");
+					} else if (!Validator.isValidEmail(textEmail.getText())) {
+						JOptionPane.showMessageDialog(null, "INVALID EMAIL.");
+					} else if (!Validator.isValidatePassword(textPassword.getText())) {
+						JOptionPane.showMessageDialog(null,
+								"INVALID PASSWORD. \nPassword must be above 8 characters, \ncontain at least one uppercase, one number, \nand one special character !");
+					} else if (!textPassword.getText().equals(textConfirmPassword.getText())) {
+						JOptionPane.showMessageDialog(null, "PASSWORD DOES NOT MATCH.");
+					} else if (profileService.getProfile(textUserName.getText()).getCreated() != null) {
+						JOptionPane.showMessageDialog(null, "USER NAME ALREADY EXISTS.");
+					} else {
+						Profile profile = new Profile();
+						profile.setFirstName(textFirstName.getText());
+						profile.setLastName(textLastName.getText());
+						profile.setProfileName(textUserName.getText());
+						profile.setAddress(textAddress.getText());
+						profile.setPhoneNumber(textPhoneNumber.getText());
+						profile.setPassword(textPassword.getText());
+						profile.setEmail(textEmail.getText());
+						profile.setQuestion((String) listQuestions.getSelectedItem());
+						profile.setAnswer(textAnswer.getText());
+						profileService.addProfile(profile);
+						LoginGUI loginGUI = new LoginGUI();
+						loginGUI.setVisible(true);
+					}
+				}
+			}
+		});
 		add(btnRegister);
 
 		String questions[] = { "What is your favorite book?", "What is your nickname?", "What is your favorite food?",

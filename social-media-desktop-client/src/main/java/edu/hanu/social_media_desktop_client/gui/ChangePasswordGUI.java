@@ -1,13 +1,19 @@
 package edu.hanu.social_media_desktop_client.gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
+import edu.hanu.social_media_desktop_client.model.Profile;
+import edu.hanu.social_media_desktop_client.service.ProfileService;
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderPasswordField;
+import edu.hanu.social_media_desktop_client.utils.Validator;
 
 public class ChangePasswordGUI extends JFrame {
 	/**
@@ -21,6 +27,7 @@ public class ChangePasswordGUI extends JFrame {
 	private PlaceHolderPasswordField textConfirmPassword;
 	private JButton btnSave;
 	private JLabel lbBackToLogin;
+	ProfileService profileService = new ProfileService();
 
 	public ChangePasswordGUI() {
 		super("Change Password");
@@ -61,6 +68,33 @@ public class ChangePasswordGUI extends JFrame {
 		btnSave = new JButton("SAVE");
 		btnSave.setSize(100, 30);
 		btnSave.setLocation(140, 210);
+		btnSave.addActionListener(new ActionListener() {
+
+			@SuppressWarnings("deprecation")
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (textPassword.getText().isEmpty() || textPassword.getText().equals("Password")
+						|| textPassword.getText() == null) {
+					JOptionPane.showMessageDialog(null, "Please input your password.");
+				} else if (textConfirmPassword.getText().isEmpty() || textConfirmPassword.getText().equals("Password")
+						|| textConfirmPassword.getText() == null) {
+					JOptionPane.showMessageDialog(null, "Please confirm your password.");
+				} else if (!Validator.isValidatePassword(textPassword.getText())) {
+					JOptionPane.showMessageDialog(null,
+							"INVALID PASSWORD. \nPassword must be above 8 characters, \ncontain at least one uppercase, one number, \nand one special character !");
+				} else {
+					if (!textPassword.getText().equals(textConfirmPassword.getText())) {
+						JOptionPane.showMessageDialog(null, "PASSWORD DOES NOT MATCH.");
+					} else {
+						Profile profile = profileService.getProfile(LoginGUI.userName);
+						profile.setPassword(textPassword.getText());
+						profileService.updateProfile(profile);
+						LoginGUI loginGUI = new LoginGUI();
+						loginGUI.setVisible(true);
+					}
+				}
+			}
+		});
 		add(btnSave);
 
 		lbBackToLogin = new JLabel("Back to Login");

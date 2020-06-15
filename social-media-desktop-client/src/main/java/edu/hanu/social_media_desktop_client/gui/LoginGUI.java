@@ -4,15 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+
+import edu.hanu.social_media_desktop_client.model.Profile;
+import edu.hanu.social_media_desktop_client.service.ProfileService;
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderPasswordField;
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderTextField;
-import edu.hanu.social_media_desktop_client.service.ProfileService;
-import edu.hanu.social_media_desktop_client.dao.ProfileDAO;
-import edu.hanu.social_media_desktop_client.model.Profile;
 
 public class LoginGUI extends JFrame {
 	/**
@@ -27,8 +28,6 @@ public class LoginGUI extends JFrame {
 	private PlaceHolderPasswordField textPassword;
 
 	private JButton btnLogin;
-
-	private ProfileDAO profileDAO = new ProfileDAO();
 	static String userName = "";
 
 	public LoginGUI() {
@@ -66,8 +65,8 @@ public class LoginGUI extends JFrame {
 		lbForgotPassword.setLocation(150, 165);
 		lbForgotPassword.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-//		       frame = new JFrame("new frame");
-//		       frame.setVisible(true);
+				ForgotPasswordGUI forgotPasswordGUI = new ForgotPasswordGUI();
+				forgotPasswordGUI.setVisible(true);
 			}
 		});
 		add(lbForgotPassword);
@@ -87,7 +86,7 @@ public class LoginGUI extends JFrame {
 		btnLogin.setSize(100, 30);
 		btnLogin.setLocation(150, 235);
 		btnLogin.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
+			@SuppressWarnings({ "deprecation", "unused" })
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (textUserName.getText().isEmpty() || textUserName.getText() == null

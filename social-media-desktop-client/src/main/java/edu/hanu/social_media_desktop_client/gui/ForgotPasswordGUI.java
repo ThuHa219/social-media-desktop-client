@@ -1,5 +1,7 @@
 package edu.hanu.social_media_desktop_client.gui;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
@@ -9,7 +11,10 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
+import edu.hanu.social_media_desktop_client.model.Profile;
+import edu.hanu.social_media_desktop_client.service.ProfileService;
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderTextField;
 
 public class ForgotPasswordGUI extends JFrame {
@@ -23,6 +28,7 @@ public class ForgotPasswordGUI extends JFrame {
 	@SuppressWarnings("rawtypes")
 	private JComboBox listQuestions;
 	private JLabel lbSelectQuestion;
+	ProfileService profileService = new ProfileService();
 
 	public ForgotPasswordGUI() {
 		super("Forgot Password");
@@ -55,7 +61,7 @@ public class ForgotPasswordGUI extends JFrame {
 		lbSelectQuestion.setSize(250, 30);
 		lbSelectQuestion.setLocation(65, 150);
 		add(lbSelectQuestion);
-		
+
 		String questions[] = { "What is your favorite book?", "What is your nickname?", "What is your favorite food?",
 				"What is your pet's name?", "What kinds of instrument do you know how to play?" };
 		listQuestions = new JComboBox(questions);
@@ -80,6 +86,33 @@ public class ForgotPasswordGUI extends JFrame {
 		btnResetPassword = new JButton("Reset Password");
 		btnResetPassword.setSize(160, 30);
 		btnResetPassword.setLocation(115, 290);
+		btnResetPassword.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (textUserName.getText().isEmpty() || textUserName.getText().equals("User Name")
+						|| textUserName.getText() == null) {
+					JOptionPane.showMessageDialog(null, "Please input your user name.");
+				} else if (textAnswer.getText().isEmpty() || textAnswer.getText().equals("Answer")
+						|| textAnswer.getText() == null) {
+					JOptionPane.showMessageDialog(null, "Please input your answer.");
+				} else if (profileService.getProfile(textUserName.getText()).getCreated() == null) {
+					JOptionPane.showMessageDialog(null, "USER NAME DOES NOT EXISTS.");
+				} else {
+					Profile profile = profileService.getProfile(textUserName.getText());
+					if (profile.getProfileName().equals(textUserName.getText())
+							&& profile.getQuestion().equals((String) listQuestions.getSelectedItem())
+							&& profile.getAnswer().equals(textAnswer.getText())) {
+						LoginGUI.userName = textUserName.getText();
+						System.out.println(LoginGUI.userName);
+						ChangePasswordGUI changePasswordGUI = new ChangePasswordGUI();
+						changePasswordGUI.setVisible(true);
+					} else {
+						JOptionPane.showMessageDialog(null, "Question or Answer is not match");
+					}
+				}
+			}
+		});
 		add(btnResetPassword);
 
 		lbBackToLogin = new JLabel("Back to Login");
