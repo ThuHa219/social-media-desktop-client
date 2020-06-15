@@ -8,9 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderPasswordField;
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderTextField;
+import edu.hanu.social_media_desktop_client.service.ProfileService;
+import edu.hanu.social_media_desktop_client.dao.ProfileDAO;
+import edu.hanu.social_media_desktop_client.model.Profile;
 
 public class LoginGUI extends JFrame {
 	/**
@@ -26,6 +28,9 @@ public class LoginGUI extends JFrame {
 
 	private JButton btnLogin;
 
+	private ProfileDAO profileDAO = new ProfileDAO();
+	static String userName = "";
+
 	public LoginGUI() {
 		// TODO Auto-generated constructor stub
 		super("Login Social Media Web");
@@ -33,6 +38,7 @@ public class LoginGUI extends JFrame {
 		setLocation(500, 100);
 		setLayout(null);
 		initPanels();
+		this.dispose();
 	}
 
 	private void initPanels() {
@@ -84,12 +90,26 @@ public class LoginGUI extends JFrame {
 			@SuppressWarnings("deprecation")
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (textUserName.getText().isEmpty() || textUserName.getText() == null) {
+				if (textUserName.getText().isEmpty() || textUserName.getText() == null
+						|| textUserName.getText().equals("Username")) {
 					JOptionPane.showMessageDialog(null, "Please input username");
-				} else if (textPassword.getText().isEmpty() || textPassword.getText() == null) {
+				} else if (textPassword.getText().isEmpty() || textPassword.getText() == null
+						|| textPassword.getText().equals("Password")) {
 					JOptionPane.showMessageDialog(null, "Please input password");
 				} else {
-					JOptionPane.showMessageDialog(null, "OKE");
+					ProfileService profileService = new ProfileService();
+					userName = textUserName.getText();
+					String password = textPassword.getText();
+					if (profileService.checkAuthetication(userName, password)) {
+						Profile profile = new Profile();
+						profile = profileService.getProfile(userName);
+						JOptionPane.showMessageDialog(null, "WELCOME " + userName);
+						HomePageGUI homePageGUI = new HomePageGUI();
+						homePageGUI.setVisible(true);
+
+					} else {
+						JOptionPane.showMessageDialog(null, "INVALID ACCOUNT. PLEASE TRY AGAIN");
+					}
 				}
 			}
 
@@ -100,5 +120,6 @@ public class LoginGUI extends JFrame {
 	public static void main(String[] args) {
 		LoginGUI gui = new LoginGUI();
 		gui.setVisible(true);
+		System.out.println(userName);
 	}
 }
