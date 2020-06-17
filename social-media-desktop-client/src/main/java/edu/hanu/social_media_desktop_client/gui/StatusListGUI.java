@@ -14,22 +14,9 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderTextField;
 
-public class HomePageGUI extends JFrame {
+public class StatusListGUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-
-	// nav-bar
-	private JButton btnHome;
-	private JButton btnProfile;
-	private JButton btnMesssage;
-	private PlaceHolderTextField textSearch;
-	private JButton btnSearch;
-	private JButton btnLogout;
-	// end nav-bar
-
-	private JLabel lbCreatePost;
-	private PlaceHolderTextField textThinking;
-	private JButton btnShare;
 
 	private JLabel lbName;
 	private JLabel lbTime;
@@ -40,10 +27,9 @@ public class HomePageGUI extends JFrame {
 	private PlaceHolderTextField textComment;
 	private JButton btnComment;
 
-	public HomePageGUI() {
+	public StatusListGUI() {
 
 		JPanel listContainer;
-
 		final JFrame frame = new JFrame("Homepage");
 		frame.setSize(600, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -112,6 +98,7 @@ public class HomePageGUI extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		HomePageGUI homePageGUI = new HomePageGUI();
+		@SuppressWarnings("unused")
+		StatusListGUI homePageGUI = new StatusListGUI();
 	}
 }

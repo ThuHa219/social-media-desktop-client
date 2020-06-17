@@ -103,7 +103,7 @@ public class LoginGUI extends JFrame {
 						Profile profile = new Profile();
 						profile = profileService.getProfile(userName);
 						JOptionPane.showMessageDialog(null, "WELCOME " + userName);
-						HomePageGUI homePageGUI = new HomePageGUI();
+						StatusListGUI homePageGUI = new StatusListGUI();
 						homePageGUI.setVisible(true);
 
 					} else {

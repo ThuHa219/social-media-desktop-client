@@ -38,7 +38,7 @@ public class EditProfileGUI extends Frame {
 		btnHome.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				HomePageGUI homePageGUI = new HomePageGUI();
+				StatusListGUI homePageGUI = new StatusListGUI();
 				homePageGUI.setVisible(true);
 			}
 		});

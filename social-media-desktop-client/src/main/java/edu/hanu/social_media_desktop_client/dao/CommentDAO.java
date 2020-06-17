@@ -23,8 +23,8 @@ public class CommentDAO implements DAO<Comment> {
 	}
 
 	public Comment get(long id) {
-		Comment comment = resourceTargetId.resolveTemplate("resourceName", "comments")
-				.resolveTemplate("resourceId", id).request(MediaType.APPLICATION_JSON).get(Comment.class);
+		Comment comment = resourceTargetId.resolveTemplate("resourceName", "comments").resolveTemplate("resourceId", id)
+				.request(MediaType.APPLICATION_JSON).get(Comment.class);
 		return comment;
 	}
 
@@ -35,33 +35,30 @@ public class CommentDAO implements DAO<Comment> {
 			System.err.println("error");
 		}
 	}
-	
+
 	public List<Comment> getAll() {
-		List<Comment> response = resourceTargetId.resolveTemplate("resourceName", "comments")
-												.request(MediaType.APPLICATION_JSON)
-												.get(new GenericType<List<Comment>>() {});
+		List<Comment> response = resourceTarget.resolveTemplate("resourceName", "comments")
+				.request(MediaType.APPLICATION_JSON).get(new GenericType<List<Comment>>() {
+				});
 		return response;
 	}
-	
+
 	public void update(Comment comment) {
 		Response response = resourceTargetId.resolveTemplate("resourceName", "comments")
-				.resolveTemplate("resourceId", comment.getId())
-				.request()
-				.put(Entity.json(comment));
+				.resolveTemplate("resourceId", comment.getId()).request().put(Entity.json(comment));
 		if (response.getStatus() != 204) {
 			System.err.println("CommentDAO.update()");
 		}
 	}
-	
+
 	public void delete(long id) {
 		Response response = resourceTargetId.resolveTemplate("resourceName", "comments")
-				.resolveTemplate("resourceId", id)
-				.request()
-				.delete();
+				.resolveTemplate("resourceId", id).request().delete();
 		if (response.getStatus() != 204) {
 			System.err.println("CommentDAO.delete()");
 		}
 	}
+
 	public static void main(String[] args) {
 //		Profile p = new Profile();
 //		p.setFirstName("Ha");
@@ -72,7 +69,7 @@ public class CommentDAO implements DAO<Comment> {
 //		p.setAnswer("harry potter");
 		CommentDAO dao = new CommentDAO();
 //		dao.save(p);
-		
+
 		System.out.println(dao.get(1).toString());
 	}
 }

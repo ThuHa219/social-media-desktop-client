@@ -35,7 +35,7 @@ public class FollowingGUI extends JFrame {
 		btnHome.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				HomePageGUI homePageGUI = new HomePageGUI();
+				StatusListGUI homePageGUI = new StatusListGUI();
 				homePageGUI.setVisible(true);
 			}
 		});
