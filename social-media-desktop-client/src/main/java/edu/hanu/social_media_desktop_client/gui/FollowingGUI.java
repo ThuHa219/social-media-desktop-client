@@ -2,10 +2,8 @@ package edu.hanu.social_media_desktop_client.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
-
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderTextField;
 
 public class FollowingGUI extends JFrame {

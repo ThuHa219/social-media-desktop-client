@@ -1,11 +1,13 @@
 package edu.hanu.social_media_desktop_client.gui;
 
+import java.awt.Frame;
+
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderTextField;
 
-public class StatusPanel extends JFrame {
+public class StatusTemplateFrame extends Frame {
 	/**
 	 * 
 	 */
@@ -20,7 +22,7 @@ public class StatusPanel extends JFrame {
 	private PlaceHolderTextField textComment;
 	private JButton btnComment;
 
-	public StatusPanel() {
+	public StatusTemplateFrame() {
 		setSize(350, 380);
 		setLocation(500, 100);
 		setLayout(null);
@@ -62,7 +64,7 @@ public class StatusPanel extends JFrame {
 		lbComment = new JLabel("Ohh wowwwww");
 		lbComment.setSize(100, 20);
 		lbComment.setLocation(20, 140);
-		add(lbComment); 
+		add(lbComment);
 
 		textComment = new PlaceHolderTextField(30);
 		textComment.setPlaceholder("Write some comments about this post!");
@@ -127,5 +129,4 @@ public class StatusPanel extends JFrame {
 		StatusPanel statusPanel = new StatusPanel();
 		statusPanel.setVisible(true);
 	}
-
 }

@@ -1,19 +1,23 @@
 package edu.hanu.social_media_desktop_client.gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingUtilities;
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderTextField;
 
 public class HomePageGUI extends JFrame {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
+
 	// nav-bar
 	private JButton btnHome;
 	private JButton btnProfile;
@@ -22,108 +26,92 @@ public class HomePageGUI extends JFrame {
 	private JButton btnSearch;
 	private JButton btnLogout;
 	// end nav-bar
+
 	private JLabel lbCreatePost;
 	private PlaceHolderTextField textThinking;
 	private JButton btnShare;
 
+	private JLabel lbName;
+	private JLabel lbTime;
+	private JLabel lbStatus;
+	private JLabel lbCommenterName;
+	private JLabel lbCommentTime;
+	private JLabel lbComment;
+	private PlaceHolderTextField textComment;
+	private JButton btnComment;
+
 	public HomePageGUI() {
-		// TODO Auto-generated constructor stub
-		super("Home Page");
-		setSize(400, 600);
-		setLocation(500, 100);
-		setLayout(null);
-		initPanels();
-	}
 
-	private void initPanels() {
-		// TODO Auto-generated method stub
-		// nav-bar
-		btnHome = new JButton("Home");
-		btnHome.setSize(100, 40);
-		btnHome.setLocation(0, 0);
-		btnHome.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				HomePageGUI homePageGUI = new HomePageGUI();
-				homePageGUI.setVisible(true);
-			}
-		});
-		add(btnHome);
+		JPanel listContainer;
 
-		btnProfile = new JButton("Profile");
-		btnProfile.setSize(100, 40);
-		btnProfile.setLocation(100, 0);
-		btnProfile.addActionListener(new ActionListener() {
+		final JFrame frame = new JFrame("Homepage");
+		frame.setSize(600, 500);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ProfileGUI profileGUI = new ProfileGUI();
-				profileGUI.setVisible(true);
-			}
-		});
+		listContainer = new JPanel();
+		listContainer.setLayout(new BoxLayout(listContainer, BoxLayout.Y_AXIS));
+		JScrollPane jScrollPane = new JScrollPane(listContainer);
+		frame.add(jScrollPane, BorderLayout.CENTER);
+		JPanel newPanel = new JPanel();
+		newPanel.setLayout(new GridLayout(0, 2));
 
-		add(btnProfile);
+		for (int i = 1; i <= 20; i++) {
+			JPanel leftPanel = new JPanel();
+			leftPanel.setLayout(new GridLayout(0, 1));
+			JPanel rightPanel = new JPanel();
+			rightPanel.setLayout(new FlowLayout());
+			rightPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-		btnMesssage = new JButton("Message");
-		btnMesssage.setSize(100, 40);
-		btnMesssage.setLocation(200, 0);
-		btnMesssage.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				MessageGUI messageGUI = new MessageGUI();
-				messageGUI.setVisible(true);
-			}
-		});
-		add(btnMesssage);
+			lbName = new JLabel("Vuong Khanh Linh" + i);
+			leftPanel.add(lbName);
 
-		btnLogout = new JButton("Log out");
-		btnLogout.setSize(100, 40);
-		btnLogout.setLocation(300, 0);
-		btnLogout.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				LoginGUI loginGUI = new LoginGUI();
-				loginGUI.setVisible(true);
-			}
-		});
-		add(btnLogout);
+			lbTime = new JLabel("20/11/2020");
+			leftPanel.add(lbTime);
 
-		textSearch = new PlaceHolderTextField(30);
-		textSearch.setPlaceholder("Search people");
-		textSearch.setSize(265, 40);
-		textSearch.setLocation(0, 40);
-		add(textSearch);
+			lbStatus = new JLabel("It's awesome dayyyyyyyyyy.");
+			leftPanel.add(lbStatus);
 
-		btnSearch = new JButton("Search");
-		btnSearch.setSize(130, 40);
-		btnSearch.setLocation(260, 39);
-		add(btnSearch);
-		// nav-bar end
+			lbCommenterName = new JLabel("Tran Thu Hien");
+			leftPanel.add(lbCommenterName);
 
-		// create post
-		lbCreatePost = new JLabel("Create a post");
-		lbCreatePost.setSize(200, 30);
-		lbCreatePost.setLocation(10, 80);
-		add(lbCreatePost);
+			lbCommentTime = new JLabel("22/22/2020");
+			leftPanel.add(lbCommentTime);
 
-		textThinking = new PlaceHolderTextField(30);
-		textThinking.setPlaceholder("What are you thinking?");
-		textThinking.setSize(280, 70);
-		textThinking.setLocation(10, 110);
-		add(textThinking);
+			lbComment = new JLabel("Ohh wowwwww");
+			leftPanel.add(lbComment);
 
-		btnShare = new JButton("Share");
-		btnShare.setSize(80, 40);
-		btnShare.setLocation(300, 125);
-		add(btnShare);
-		// end-create-post
+			textComment = new PlaceHolderTextField(30);
+			textComment.setPlaceholder("Add comment about this post");
+			textComment.setPreferredSize(new Dimension(400, 40));
+			leftPanel.add(textComment);
 
-		// show status
-		
+			btnComment = new JButton("Comment");
+			btnComment.setPreferredSize(new Dimension(100, 30));
+			rightPanel.add(btnComment);
+			leftPanel.add(rightPanel);
+
+			JPanel cJp = new JPanel();
+			cJp.setLayout(new GridLayout(1, 2));
+			cJp.add(leftPanel);
+			newPanel.add(cJp);
+			newPanel.setLayout(new BoxLayout(newPanel, BoxLayout.Y_AXIS));
+
+			listContainer.add(newPanel);
+			listContainer.revalidate();
+
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					newPanel.scrollRectToVisible(newPanel.getBounds());
+				}
+			});
+		}
+
+		frame.setVisible(true);
+
 	}
 
 	public static void main(String[] args) {
 		HomePageGUI homePageGUI = new HomePageGUI();
-		homePageGUI.setVisible(true);
 	}
 }
