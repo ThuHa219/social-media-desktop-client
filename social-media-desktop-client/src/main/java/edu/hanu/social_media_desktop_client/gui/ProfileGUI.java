@@ -216,6 +216,17 @@ public class ProfileGUI extends JFrame {
 		btnEditProfile = new JButton("Edit Profile");
 		btnEditProfile.setSize(100, 30);
 		btnEditProfile.setLocation(275, 520);
+		btnEditProfile.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+				EditProfileGUI editProfileGUI = new EditProfileGUI();
+				editProfileGUI.setVisible(true);
+
+			}
+		});
 		add(btnEditProfile);
 	}
 
