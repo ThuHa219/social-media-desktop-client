@@ -9,11 +9,7 @@ import javax.swing.JLabel;
 
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderTextField;
 
-public class ProfileGUI extends JFrame {
-
-	/**
-	 * 
-	 */
+public class HomeGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 	// nav-bar
 	private JButton btnHome;
@@ -27,10 +23,9 @@ public class ProfileGUI extends JFrame {
 	private PlaceHolderTextField textThinking;
 	private JButton btnShare;
 
-	public ProfileGUI() {
-
+	public HomeGUI() {
 		// TODO Auto-generated constructor stub
-		super("Profile");
+		super("Home Page");
 		setSize(400, 600);
 		setLocation(500, 100);
 		setLayout(null);
@@ -38,6 +33,8 @@ public class ProfileGUI extends JFrame {
 	}
 
 	private void initPanels() {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
 		// nav-bar
 		btnHome = new JButton("Home");
 		btnHome.setSize(100, 40);
@@ -45,8 +42,8 @@ public class ProfileGUI extends JFrame {
 		btnHome.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				StatusListGUI homePageGUI = new StatusListGUI();
-				homePageGUI.setVisible(true);
+				HomeGUI homeGUI = new HomeGUI();
+				homeGUI.setVisible(true);
 			}
 		});
 		add(btnHome);
@@ -101,10 +98,29 @@ public class ProfileGUI extends JFrame {
 		add(btnSearch);
 		// nav-bar end
 
+		// create post
+		lbCreatePost = new JLabel("Create a post");
+		lbCreatePost.setSize(200, 30);
+		lbCreatePost.setLocation(10, 80);
+		add(lbCreatePost);
+
+		textThinking = new PlaceHolderTextField(30);
+		textThinking.setPlaceholder("What are you thinking?");
+		textThinking.setSize(280, 70);
+		textThinking.setLocation(10, 110);
+		add(textThinking);
+
+		btnShare = new JButton("Share");
+		btnShare.setSize(80, 40);
+		btnShare.setLocation(300, 125);
+		add(btnShare);
+		// end-create-post
+
+		// show status
 	}
 
 	public static void main(String[] args) {
-		ProfileGUI profileGUI = new ProfileGUI();
-		profileGUI.setVisible(true);
+		HomeGUI homeGUI = new HomeGUI();
+		homeGUI.setVisible(true);
 	}
 }

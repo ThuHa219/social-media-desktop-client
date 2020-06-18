@@ -5,13 +5,14 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
+
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderTextField;
 
 public class StatusListGUI extends JFrame {
@@ -85,12 +86,6 @@ public class StatusListGUI extends JFrame {
 			listContainer.add(newPanel);
 			listContainer.revalidate();
 
-			SwingUtilities.invokeLater(new Runnable() {
-				@Override
-				public void run() {
-					newPanel.scrollRectToVisible(newPanel.getBounds());
-				}
-			});
 		}
 
 		frame.setVisible(true);
