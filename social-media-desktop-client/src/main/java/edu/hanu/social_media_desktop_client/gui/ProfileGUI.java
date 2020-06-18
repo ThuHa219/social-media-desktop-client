@@ -2,11 +2,15 @@ package edu.hanu.social_media_desktop_client.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import edu.hanu.social_media_desktop_client.model.Profile;
+import edu.hanu.social_media_desktop_client.service.ProfileService;
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderTextField;
 
 public class ProfileGUI extends JFrame {
@@ -24,8 +28,25 @@ public class ProfileGUI extends JFrame {
 	private JButton btnLogout;
 	// end nav-bar
 	private JLabel lbCreatePost;
+	private JLabel lbHello;
 	private PlaceHolderTextField textThinking;
 	private JButton btnShare;
+
+	private JLabel lbInformation;
+	private JButton btnFollowing;
+	private JButton btnShowStatus;
+	private JButton btnEditProfile;
+
+	private JLabel lbFirstName;
+	private JLabel lbLastName;
+	private JLabel lbEmail;
+	private JLabel lbPhoneNumber;
+	private JLabel lbAddress;
+
+	private JButton btnChangePassword;
+
+	ProfileService profileService = new ProfileService();
+	Profile profile = profileService.getProfile(LoginGUI.userName);
 
 	public ProfileGUI() {
 
@@ -38,26 +59,44 @@ public class ProfileGUI extends JFrame {
 	}
 
 	private void initPanels() {
+		// hello
+		lbHello = new JLabel();
+		// lbHello.setText("Hello");
+		lbHello.setText("Hello " + profile.getFirstName() + " " + profile.getLastName());
+		lbHello.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				ProfileGUI profileGUI = new ProfileGUI();
+				profileGUI.setVisible(true);
+			}
+		});
+		lbHello.setSize(200, 30);
+		lbHello.setLocation(150, 10);
+		add(lbHello);
+		// end hello
+
 		// nav-bar
 		btnHome = new JButton("Home");
 		btnHome.setSize(100, 40);
-		btnHome.setLocation(0, 0);
+		btnHome.setLocation(0, 50);
 		btnHome.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				StatusListGUI homePageGUI = new StatusListGUI();
-				homePageGUI.setVisible(true);
+				dispose();
+				HomeGUI homeGUI = new HomeGUI();
+				homeGUI.setVisible(true);
 			}
 		});
 		add(btnHome);
 
 		btnProfile = new JButton("Profile");
 		btnProfile.setSize(100, 40);
-		btnProfile.setLocation(100, 0);
+		btnProfile.setLocation(100, 50);
 		btnProfile.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				dispose();
 				ProfileGUI profileGUI = new ProfileGUI();
 				profileGUI.setVisible(true);
 			}
@@ -67,10 +106,11 @@ public class ProfileGUI extends JFrame {
 
 		btnMesssage = new JButton("Message");
 		btnMesssage.setSize(100, 40);
-		btnMesssage.setLocation(200, 0);
+		btnMesssage.setLocation(200, 50);
 		btnMesssage.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				dispose();
 				MessageGUI messageGUI = new MessageGUI();
 				messageGUI.setVisible(true);
 			}
@@ -79,12 +119,12 @@ public class ProfileGUI extends JFrame {
 
 		btnLogout = new JButton("Log out");
 		btnLogout.setSize(100, 40);
-		btnLogout.setLocation(300, 0);
+		btnLogout.setLocation(300, 50);
 		btnLogout.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				dispose();
 				LoginGUI loginGUI = new LoginGUI();
-				loginGUI.setVisible(true);
 			}
 		});
 		add(btnLogout);
@@ -92,15 +132,91 @@ public class ProfileGUI extends JFrame {
 		textSearch = new PlaceHolderTextField(30);
 		textSearch.setPlaceholder("Search people");
 		textSearch.setSize(265, 40);
-		textSearch.setLocation(0, 40);
+		textSearch.setLocation(0, 90);
 		add(textSearch);
 
 		btnSearch = new JButton("Search");
 		btnSearch.setSize(130, 40);
-		btnSearch.setLocation(260, 39);
+		btnSearch.setLocation(260, 89);
 		add(btnSearch);
 		// nav-bar end
 
+		// create post
+		lbCreatePost = new JLabel("Create a post");
+		lbCreatePost.setSize(200, 30);
+		lbCreatePost.setLocation(10, 130);
+		add(lbCreatePost);
+
+		textThinking = new PlaceHolderTextField(30);
+		textThinking.setPlaceholder("What are you thinking?");
+		textThinking.setSize(280, 70);
+		textThinking.setLocation(10, 160);
+		add(textThinking);
+
+		btnShare = new JButton("Share");
+		btnShare.setSize(80, 40);
+		btnShare.setLocation(300, 175);
+		add(btnShare);
+		// end-create-post
+
+		lbInformation = new JLabel("YOUR INFORMATION");
+		lbInformation.setSize(250, 30);
+		lbInformation.setLocation(130, 250);
+		add(lbInformation);
+
+		lbFirstName = new JLabel("First Name:    " + profile.getFirstName());
+		lbFirstName.setSize(250, 30);
+		lbFirstName.setLocation(50, 290);
+		add(lbFirstName);
+
+		lbLastName = new JLabel("Last Name:     " + profile.getLastName());
+		lbLastName.setSize(250, 30);
+		lbLastName.setLocation(50, 330);
+		add(lbLastName);
+
+		lbEmail = new JLabel("Email:         " + profile.getEmail());
+		lbEmail.setSize(250, 30);
+		lbEmail.setLocation(50, 370);
+		add(lbEmail);
+
+		lbPhoneNumber = new JLabel("Phone Number:   " + profile.getPhoneNumber());
+		lbPhoneNumber.setSize(250, 30);
+		lbPhoneNumber.setLocation(50, 410);
+		add(lbPhoneNumber);
+
+		lbAddress = new JLabel("Address:       " + profile.getAddress());
+		lbAddress.setSize(250, 30);
+		lbAddress.setLocation(50, 450);
+		add(lbAddress);
+
+		btnChangePassword = new JButton("Change Password");
+		btnChangePassword.setSize(150, 30);
+		btnChangePassword.setLocation(117, 480);
+		btnChangePassword.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ChangePasswordGUI2 changePasswordGUI2 = new ChangePasswordGUI2();
+				changePasswordGUI2.setVisible(true);
+			}
+		});
+		add(btnChangePassword);
+
+		btnFollowing = new JButton("Following");
+		btnFollowing.setSize(100, 30);
+		btnFollowing.setLocation(10, 520);
+		add(btnFollowing);
+
+		btnShowStatus = new JButton("Show Your Statuses");
+		btnShowStatus.setSize(150, 30);
+		btnShowStatus.setLocation(117, 520);
+		add(btnShowStatus);
+
+		btnEditProfile = new JButton("Edit Profile");
+		btnEditProfile.setSize(100, 30);
+		btnEditProfile.setLocation(275, 520);
+		add(btnEditProfile);
 	}
 
 	public static void main(String[] args) {

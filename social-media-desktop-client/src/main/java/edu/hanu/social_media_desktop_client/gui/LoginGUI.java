@@ -37,7 +37,6 @@ public class LoginGUI extends JFrame {
 		setLocation(500, 100);
 		setLayout(null);
 		initPanels();
-		this.dispose();
 	}
 
 	private void initPanels() {
@@ -65,6 +64,7 @@ public class LoginGUI extends JFrame {
 		lbForgotPassword.setLocation(150, 165);
 		lbForgotPassword.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				dispose();
 				ForgotPasswordGUI forgotPasswordGUI = new ForgotPasswordGUI();
 				forgotPasswordGUI.setVisible(true);
 			}
@@ -76,6 +76,7 @@ public class LoginGUI extends JFrame {
 		lbRegister.setLocation(180, 195);
 		lbRegister.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				dispose();
 				RegisterGUI registerGUI = new RegisterGUI();
 				registerGUI.setVisible(true);
 			}
@@ -103,8 +104,9 @@ public class LoginGUI extends JFrame {
 						Profile profile = new Profile();
 						profile = profileService.getProfile(userName);
 						JOptionPane.showMessageDialog(null, "WELCOME " + userName);
-						StatusListGUI homePageGUI = new StatusListGUI();
-						homePageGUI.setVisible(true);
+						dispose();
+						HomeGUI homeGUI = new HomeGUI();
+						homeGUI.setVisible(true);
 
 					} else {
 						JOptionPane.showMessageDialog(null, "INVALID ACCOUNT. PLEASE TRY AGAIN");
