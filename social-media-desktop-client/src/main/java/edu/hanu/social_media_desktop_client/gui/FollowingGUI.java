@@ -1,95 +1,63 @@
 package edu.hanu.social_media_desktop_client.gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import edu.hanu.social_media_desktop_client.utils.PlaceHolderTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+import edu.hanu.social_media_desktop_client.model.Profile;
+import edu.hanu.social_media_desktop_client.service.FriendListService;
 
 public class FollowingGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
-	// nav-bar
-	private JButton btnHome;
-	private JButton btnProfile;
-	private JButton btnMesssage;
-	private PlaceHolderTextField textSearch;
-	private JButton btnSearch;
-	private JButton btnLogout;
-	// end nav-bar
+	private Object data[][];
+	String column[] = { "ID", "FIRST NAME", "LAST NAME", "PHONE", "EMAIL              " };
+	private JTable tblFollowing;
+	private JScrollPane jScrollPane;
+	private JButton btnUnfollow;
+	FriendListService friendListService = new FriendListService();
+	List<Profile> friends;
 
 	public FollowingGUI() {
 		// TODO Auto-generated constructor stub
 		super("Following");
-		setSize(400, 600);
-		setLocation(500, 100);
-		setLayout(null);
+		setSize(900, 400);
+		setLocation(300, 100);
+		//setLayout(null);
+		System.out.println("check 1");
 		initPanels();
 	}
 
 	private void initPanels() {
-		// TODO Auto-generated method stub
-		// nav-bar
-		btnHome = new JButton("Home");
-		btnHome.setSize(100, 40);
-		btnHome.setLocation(0, 0);
-		btnHome.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				StatusListGUI homePageGUI = new StatusListGUI();
-				homePageGUI.setVisible(true);
-			}
-		});
-		add(btnHome);
+		btnUnfollow = new JButton("Unfollow");
+		btnUnfollow.setLocation(390, 250);
+		btnUnfollow.setSize(100, 40);
+		add(btnUnfollow);
 
-		btnProfile = new JButton("Profile");
-		btnProfile.setSize(100, 40);
-		btnProfile.setLocation(100, 0);
-		btnProfile.addActionListener(new ActionListener() {
+		List<Profile> friends = listFriend("Chien4");
+		System.out.println("check 2");
+		data = new Object[friends.size() + 1][5];
+		for (Profile profile : friends) {
+			System.out.println(friends.indexOf(profile));
+			data[friends.indexOf(profile)][0] = friends.indexOf(profile) + 1;
+			data[friends.indexOf(profile)][1] = profile.getFirstName();
+			data[friends.indexOf(profile)][2] = profile.getLastName();
+			data[friends.indexOf(profile)][3] = profile.getPhoneNumber();
+			data[friends.indexOf(profile)][4] = profile.getEmail();
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ProfileGUI profileGUI = new ProfileGUI();
-				profileGUI.setVisible(true);
-			}
-		});
+		}
+		System.out.println("check 5");
+		tblFollowing = new JTable(data, column);
+		jScrollPane = new JScrollPane(tblFollowing);
+		
+		add(jScrollPane);
+		System.out.println("check 6");
+	}
 
-		add(btnProfile);
-
-		btnMesssage = new JButton("Message");
-		btnMesssage.setSize(100, 40);
-		btnMesssage.setLocation(200, 0);
-		btnMesssage.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				MessageGUI messageGUI = new MessageGUI();
-				messageGUI.setVisible(true);
-			}
-		});
-		add(btnMesssage);
-
-		btnLogout = new JButton("Log out");
-		btnLogout.setSize(100, 40);
-		btnLogout.setLocation(300, 0);
-		btnLogout.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				LoginGUI loginGUI = new LoginGUI();
-				loginGUI.setVisible(true);
-			}
-		});
-		add(btnLogout);
-
-		textSearch = new PlaceHolderTextField(30);
-		textSearch.setPlaceholder("Search people");
-		textSearch.setSize(265, 40);
-		textSearch.setLocation(0, 40);
-		add(textSearch);
-
-		btnSearch = new JButton("Search");
-		btnSearch.setSize(130, 40);
-		btnSearch.setLocation(260, 39);
-		add(btnSearch);
-		// nav-bar end
+	public List<Profile> listFriend(String profileName) {
+		return friends = friendListService.getFriendList(profileName);
 	}
 
 	public static void main(String[] args) {

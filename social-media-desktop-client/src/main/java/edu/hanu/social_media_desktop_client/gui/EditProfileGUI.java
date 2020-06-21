@@ -142,6 +142,16 @@ public class EditProfileGUI extends JFrame {
 		btnBackToProfile = new JButton("BACK");
 		btnBackToProfile.setSize(100, 30);
 		btnBackToProfile.setLocation(20, 480);
+		btnBackToProfile.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				ProfileGUI profileGUI = new ProfileGUI();
+				profileGUI.setVisible(true);
+
+			}
+		});
 		add(btnBackToProfile);
 	}
 

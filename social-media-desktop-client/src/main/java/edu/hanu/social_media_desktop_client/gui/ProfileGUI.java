@@ -124,6 +124,7 @@ public class ProfileGUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
+				@SuppressWarnings("unused")
 				LoginGUI loginGUI = new LoginGUI();
 			}
 		});
@@ -206,11 +207,29 @@ public class ProfileGUI extends JFrame {
 		btnFollowing = new JButton("Following");
 		btnFollowing.setSize(100, 30);
 		btnFollowing.setLocation(10, 520);
+		btnFollowing.addActionListener(new ActionListener() {
+
+			@SuppressWarnings("unused")
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				ListFollowingGUI followingGUI = new ListFollowingGUI();
+
+			}
+		});
 		add(btnFollowing);
 
 		btnShowStatus = new JButton("Show Your Statuses");
 		btnShowStatus.setSize(150, 30);
 		btnShowStatus.setLocation(117, 520);
+		btnShowStatus.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				UserStatuses userStatuses = new UserStatuses();
+				userStatuses.setVisible(true);
+
+			}
+		});
 		add(btnShowStatus);
 
 		btnEditProfile = new JButton("Edit Profile");

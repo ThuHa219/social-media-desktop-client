@@ -14,7 +14,7 @@ import edu.hanu.social_media_desktop_client.model.Comment;
 
 public class CommentDAO implements DAO<Comment> {
 	private Client client = ClientBuilder.newClient();
-	private final WebTarget baseTarget = client.target("http://localhost:8080/social-media-platform-server/webapi");
+	private final WebTarget baseTarget = client.target("http://localhost:8080/social-media-platform/webapi");
 	private WebTarget resourceTarget = baseTarget.path("/{resourceName}");
 	private WebTarget resourceTargetId;
 

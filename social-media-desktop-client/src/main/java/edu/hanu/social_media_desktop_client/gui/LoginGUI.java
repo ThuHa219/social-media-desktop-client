@@ -103,7 +103,8 @@ public class LoginGUI extends JFrame {
 					if (profileService.checkAuthetication(userName, password)) {
 						Profile profile = new Profile();
 						profile = profileService.getProfile(userName);
-						JOptionPane.showMessageDialog(null, "WELCOME " + userName);
+						JOptionPane.showMessageDialog(null,
+								"WELCOME " + profile.getFirstName() + " " + profile.getLastName());
 						dispose();
 						HomeGUI homeGUI = new HomeGUI();
 						homeGUI.setVisible(true);
