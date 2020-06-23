@@ -10,10 +10,13 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import edu.hanu.social_media_desktop_client.model.Profile;
 import edu.hanu.social_media_desktop_client.service.ProfileService;
+import edu.hanu.social_media_desktop_client.service.StatusService;
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderTextField;
+import edu.hanu.social_media_desktop_client.model.Status;
 import edu.hanu.social_media_desktop_client.service.FriendListService;
 
 public class HomeGUI extends JFrame {
@@ -149,6 +152,21 @@ public class HomeGUI extends JFrame {
 		btnShare = new JButton("Share");
 		btnShare.setSize(80, 40);
 		btnShare.setLocation(300, 175);
+		btnShare.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (textThinking.getText().isEmpty() || textThinking.getText() == "What are you thinking?") {
+					JOptionPane.showMessageDialog(null, "Please input your status.");
+				} else {
+					StatusService statusService = new StatusService();
+					Status status = new Status();
+					status.setProfile(profileService.getProfile(LoginGUI.userName));
+					status.setStatus(textThinking.getText());
+					statusService.addStatus(status);
+					JOptionPane.showMessageDialog(null, "Status Posted.");
+				}
+			}
+		});
 		add(btnShare);
 		// end-create-post
 
