@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,6 +14,7 @@ import javax.swing.JLabel;
 import edu.hanu.social_media_desktop_client.model.Profile;
 import edu.hanu.social_media_desktop_client.service.ProfileService;
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderTextField;
+import edu.hanu.social_media_desktop_client.service.FriendListService;
 
 public class HomeGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -120,6 +124,13 @@ public class HomeGUI extends JFrame {
 		btnSearch = new JButton("Search");
 		btnSearch.setSize(130, 40);
 		btnSearch.setLocation(260, 89);
+		btnSearch.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("chekc search");
+				SearchedFriendGUI searchedFriendGUI = new SearchedFriendGUI(textSearch.getText());
+			}
+		});
 		add(btnSearch);
 		// nav-bar end
 

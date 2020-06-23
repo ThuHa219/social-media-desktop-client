@@ -14,7 +14,7 @@ import java.util.List;
 
 public class ListFollowingGUI {
 	private Object data[][];
-	String column[] = { "ID", "FIRST NAME", "LAST NAME", "PHONE", "EMAIL              ", " " };
+	String column[] = { "ID", "FIRST NAMEe", "LAST NAME", "PHONE", "EMAIL              ", " " };
 	FriendListService friendListService = new FriendListService();
 	List<Profile> friends;
 
@@ -49,6 +49,7 @@ public class ListFollowingGUI {
 
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
+		System.out.println("check print");
 		ListFollowingGUI buttonInTable = new ListFollowingGUI();
 	}
 }
@@ -61,10 +62,11 @@ class RendererAndEditor implements TableCellRenderer, TableCellEditor {
 
 	RendererAndEditor(JTable table) {
 		List<Profile> friends = listFriend(LoginGUI.userName);
-		button = new JButton("Unfollow");
+		button = new JButton("Unfolloww");
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("Check p5rint 2");
 				DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 				tableModel.removeRow(row);
 				friendListService.deleteFriend(LoginGUI.userName, friends.get(row).getProfileName());

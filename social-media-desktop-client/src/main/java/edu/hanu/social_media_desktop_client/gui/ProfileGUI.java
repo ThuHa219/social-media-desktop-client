@@ -139,6 +139,13 @@ public class ProfileGUI extends JFrame {
 		btnSearch = new JButton("Search");
 		btnSearch.setSize(130, 40);
 		btnSearch.setLocation(260, 89);
+		btnSearch.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("chekc search");
+				SearchedFriendGUI searchedFriendGUI = new SearchedFriendGUI(textSearch.getText());
+			}
+		});
 		add(btnSearch);
 		// nav-bar end
 
