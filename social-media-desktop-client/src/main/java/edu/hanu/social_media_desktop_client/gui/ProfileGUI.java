@@ -251,7 +251,6 @@ public class ProfileGUI extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				UserStatuses userStatuses = new UserStatuses();
-				userStatuses.setVisible(true);
 
 			}
 		});

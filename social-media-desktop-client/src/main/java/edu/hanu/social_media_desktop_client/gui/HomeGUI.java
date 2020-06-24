@@ -4,20 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import edu.hanu.social_media_desktop_client.model.Profile;
+import edu.hanu.social_media_desktop_client.model.Status;
 import edu.hanu.social_media_desktop_client.service.ProfileService;
 import edu.hanu.social_media_desktop_client.service.StatusService;
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderTextField;
-import edu.hanu.social_media_desktop_client.model.Status;
-import edu.hanu.social_media_desktop_client.service.FriendListService;
 
 public class HomeGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -155,7 +150,8 @@ public class HomeGUI extends JFrame {
 		btnShare.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (textThinking.getText().isEmpty() || textThinking.getText() == "What are you thinking?") {
+				if (textThinking.getText().isEmpty()
+						|| textThinking.getText().equalsIgnoreCase("What are you thinking?")) {
 					JOptionPane.showMessageDialog(null, "Please input your status.");
 				} else {
 					StatusService statusService = new StatusService();
@@ -164,6 +160,7 @@ public class HomeGUI extends JFrame {
 					status.setStatus(textThinking.getText());
 					statusService.addStatus(status);
 					JOptionPane.showMessageDialog(null, "Status Posted.");
+
 				}
 			}
 		});
@@ -177,7 +174,6 @@ public class HomeGUI extends JFrame {
 		lbShowStatus.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				StatusListGUI statusListGUI = new StatusListGUI();
-				statusListGUI.setVisible(true);
 			}
 		});
 		add(lbShowStatus);
