@@ -73,9 +73,11 @@ public class StatusListGUI {
 			leftPanel.add(lbName);
 
 			lbTime = new JLabel("      " + s.getCreated());
+			lbTime.setFont(new Font("Serif", Font.ITALIC, 10));
 			leftPanel.add(lbTime);
 
 			lbStatus = new JLabel("             " + s.getStatus());
+			lbStatus.setFont(new Font("Calibri", Font.ITALIC, 14));
 			leftPanel.add(lbStatus);
 
 			for (Comment c : allComments) {
@@ -85,9 +87,11 @@ public class StatusListGUI {
 					leftPanel.add(lbCommenterName);
 
 					lbCommentTime = new JLabel("      " + c.getCreated());
+					lbCommentTime.setFont(new Font("Serif", Font.ITALIC, 10));
 					leftPanel.add(lbCommentTime);
 
 					lbComment = new JLabel("      " + "      " + c.getComment());
+					lbComment.setFont(new Font("Calibri", Font.ITALIC, 14));
 					leftPanel.add(lbComment);
 				}
 			}
