@@ -6,6 +6,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,7 +14,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
+import edu.hanu.social_media_desktop_client.model.FriendList;
 import edu.hanu.social_media_desktop_client.model.Profile;
+import edu.hanu.social_media_desktop_client.service.FriendListService;
 import edu.hanu.social_media_desktop_client.service.ProfileService;
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderPasswordField;
 import edu.hanu.social_media_desktop_client.utils.PlaceHolderTextField;
@@ -192,6 +195,7 @@ public class RegisterGUI extends JFrame {
 						profileService.addProfile(profile);
 						LoginGUI loginGUI = new LoginGUI();
 						loginGUI.setVisible(true);
+
 					}
 				}
 			}
